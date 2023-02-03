@@ -23,5 +23,5 @@ public class PlanetDb implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Long id_player;
+    private Long player_id;
 }

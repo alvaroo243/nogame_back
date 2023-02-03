@@ -16,13 +16,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "resources_location")
-public class ResourcesLocationDb implements Serializable{
+@Table(name = "resource_storage")
+public class ResourceStorageDb implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long resource_id;
     private Long planet_id;
-    private Integer number;
+    private Integer quantity;
 }
