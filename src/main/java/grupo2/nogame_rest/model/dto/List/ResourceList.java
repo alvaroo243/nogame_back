@@ -1,4 +1,4 @@
-package grupo2.nogame_rest.model.dto;
+package grupo2.nogame_rest.model.dto.List;
 
 import java.io.Serializable;
 
@@ -9,10 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserEdit implements Serializable{
+public class ResourceList implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long id;
-    private String nickname;
-    private String email;
-    private String password;
+    private String name;
 }

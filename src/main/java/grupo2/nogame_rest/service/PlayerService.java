@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import grupo2.nogame_rest.model.db.PlayerDb;
-import grupo2.nogame_rest.model.dto.PlayerList;
+import grupo2.nogame_rest.model.dto.List.PlayerList;
 
 public interface PlayerService {
     public List<PlayerList> findAllPlayerList();

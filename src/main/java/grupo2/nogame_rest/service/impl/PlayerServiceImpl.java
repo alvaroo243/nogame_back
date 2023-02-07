@@ -3,11 +3,10 @@ package grupo2.nogame_rest.service.impl;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import grupo2.nogame_rest.model.db.PlayerDb;
-import grupo2.nogame_rest.model.dto.PlayerList;
+import grupo2.nogame_rest.model.dto.List.PlayerList;
 import grupo2.nogame_rest.repository.PlayerRepository;
 import grupo2.nogame_rest.service.PlayerService;
 import grupo2.nogame_rest.service.mapper.PlayerMapper;
@@ -16,7 +15,6 @@ import grupo2.nogame_rest.service.mapper.PlayerMapper;
 public class PlayerServiceImpl implements PlayerService{
     private final PlayerRepository playerRepository;
 
-    @Autowired
     public PlayerServiceImpl(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
     }

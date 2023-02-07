@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import grupo2.nogame_rest.model.db.UserDb;
-import grupo2.nogame_rest.model.dto.UserList;
+import grupo2.nogame_rest.model.dto.List.UserList;
 
 @Mapper
 public interface UserMapper {

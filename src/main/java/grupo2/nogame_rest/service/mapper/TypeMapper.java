@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import grupo2.nogame_rest.model.db.TypeDb;
-import grupo2.nogame_rest.model.dto.TypeList;
+import grupo2.nogame_rest.model.dto.List.TypeList;
 
 @Mapper
 public interface TypeMapper {
