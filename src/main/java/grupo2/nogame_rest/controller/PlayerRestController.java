@@ -14,7 +14,7 @@ import grupo2.nogame_rest.model.dto.List.PlayerList;
 import grupo2.nogame_rest.service.PlayerService;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/")
 public class PlayerRestController {
 
     private PlayerService playerService;

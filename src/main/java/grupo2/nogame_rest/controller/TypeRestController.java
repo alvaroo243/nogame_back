@@ -10,7 +10,7 @@ import grupo2.nogame_rest.model.dto.List.TypeList;
 import grupo2.nogame_rest.service.TypeService;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/")
 public class TypeRestController {
     
     private TypeService typeService;

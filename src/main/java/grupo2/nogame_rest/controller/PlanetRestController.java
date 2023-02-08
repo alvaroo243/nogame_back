@@ -11,7 +11,7 @@ import grupo2.nogame_rest.model.dto.List.PlanetList;
 import grupo2.nogame_rest.service.PlanetService;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/")
 public class PlanetRestController {
     
     private PlanetService planetService;
