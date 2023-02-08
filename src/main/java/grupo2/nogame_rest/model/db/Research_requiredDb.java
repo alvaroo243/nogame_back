@@ -19,17 +19,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "resource_storage")
-public class ResourceStorageDb implements Serializable{
+@Table(name = "research_level")
+public class Research_requiredDb implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "resource")
-    private ResourceDb resource_id;
+    @JoinColumn(name = "research")
+    private ResearchDb research_id;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "planet")
-    private PlanetDb planet_id;
-    private Integer quantity;
+    @JoinColumn(name = "research_required")
+    private Research_requiredDb research_required_id;
+    private Integer level;
 }

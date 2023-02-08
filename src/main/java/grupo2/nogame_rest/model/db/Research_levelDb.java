@@ -1,6 +1,7 @@
 package grupo2.nogame_rest.model.db;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -19,17 +20,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "resource_storage")
-public class ResourceStorageDb implements Serializable{
+@Table(name = "research_level")
+public class Research_levelDb implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "resource")
-    private ResourceDb resource_id;
+    @JoinColumn(name = "player")
+    private PlayerDb player_id;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "planet")
-    private PlanetDb planet_id;
-    private Integer quantity;
+    @JoinColumn(name = "research")
+    private ResearchDb research_id;
+    private Integer current_level;
+    private Boolean upgrade_ongoing;
+    private Date upgrade_end_time;
 }
