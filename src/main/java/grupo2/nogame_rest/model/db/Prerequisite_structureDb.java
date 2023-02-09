@@ -28,6 +28,5 @@ public class Prerequisite_structureDb implements Serializable{
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "structure")
     private StructureDb structure_id;
-    @ManyToOne(cascade = CascadeType.ALL)
     private Integer level_required;
 }
