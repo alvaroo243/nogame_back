@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,17 +22,21 @@ import grupo2.nogame_rest.exception.ResourceNotFoundException;
 import grupo2.nogame_rest.model.db.UserDb;
 import grupo2.nogame_rest.model.dto.Edit.UserEdit;
 import grupo2.nogame_rest.model.dto.Info.UserInfo;
+import grupo2.nogame_rest.service.BcriptService;
 import grupo2.nogame_rest.service.UserService;
 import grupo2.nogame_rest.service.mapper.UserMapper;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/")
 public class UserRestController {
     
     private UserService userService;
+    private BcriptService bcriptService;
 
-    public UserRestController(UserService userService) {
+    public UserRestController(UserService userService, BcriptService bcriptService) {
         this.userService = userService;
+        this.bcriptService = bcriptService;
     }
 
     @GetMapping("/user")
@@ -41,11 +46,13 @@ public class UserRestController {
 
     @PostMapping("/register")
     public UserEdit registerUser(@Valid @RequestBody UserEdit userEdit) {
+        String passwordCripted = bcriptService.hashPassword(userEdit.getPassword());
+        userEdit.setPassword(passwordCripted);
         userEdit.setCreated_ts(new Date());
         return userService.save(userEdit);
     }
 
-    @PutMapping("/user/edit/{id}")
+    //@PutMapping("/user/edit/{id}")
     public ResponseEntity<UserEdit> updateUser(@PathVariable(value = "id") Integer id,@Valid @RequestBody UserEdit userEdit) throws RuntimeException{
         Optional<UserEdit> userEditNuevo = userService.update(userEdit);
         if (userEditNuevo.isPresent()) {
@@ -64,7 +71,7 @@ public class UserRestController {
     public Optional<UserDb> loginUser(@Valid @RequestBody UserInfo userLogin) {
         Optional<UserEdit> userEditExistente = userService.getUserEditByEmail(userLogin.getEmail());
         if(userEditExistente.isPresent()) {
-            if(userEditExistente.get().getPassword().equals(userLogin.getPassword())){
+            if(bcriptService.verifyPassword(userLogin.getPassword(), userEditExistente.get().getPassword())){
                 return Optional.of(UserMapper.INSTANCE.userEditToUserDb(userEditExistente.get()));
             }
         }

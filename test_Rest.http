@@ -14,7 +14,7 @@ Content-Type: application/json
     "password": "user1"
  }
 ###
-## updateUser
+## updateUser NO FUNCIONA POR AHORA
 PUT http://localhost:8080/api/user/edit/1 HTTP/1.1
 Content-Type: application/json
 
@@ -29,7 +29,7 @@ Content-Type: application/json
 DELETE http://localhost:8080/api/user/delete/1 HTTP/1.1
 Content-Type: application/json
 ###
-## deleteUser
+## login
 POST http://localhost:8080/api/login HTTP/1.1
 Content-Type: application/json
 

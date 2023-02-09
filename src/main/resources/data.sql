@@ -16,7 +16,7 @@ CREATE  TABLE IF NOT EXISTS `user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `nickname` VARCHAR(50) NOT NULL UNIQUE,
   `email` VARCHAR(150) NOT NULL UNIQUE,
-  `password` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(150) NOT NULL,
   `created_ts` DATE,
   PRIMARY KEY (`id`) 
 );

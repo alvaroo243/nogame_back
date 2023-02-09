@@ -3,6 +3,7 @@ package grupo2.nogame_rest.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import grupo2.nogame_rest.model.db.PlayerDb;
 import grupo2.nogame_rest.model.dto.List.PlayerList;
 import grupo2.nogame_rest.service.PlayerService;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/")
 public class PlayerRestController {
