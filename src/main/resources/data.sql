@@ -16,9 +16,9 @@ CREATE  TABLE IF NOT EXISTS `user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `nickname` VARCHAR(50) NOT NULL UNIQUE,
   `email` VARCHAR(150) NOT NULL UNIQUE,
-  `password` VARCHAR(150) NOT NULL,
+  `password` VARCHAR(50) NOT NULL,
   `created_ts` DATE,
-  PRIMARY KEY (`id`) 
+  PRIMARY KEY (`id`, `email`) 
 );
 
 -- -----------------------------------------------------
@@ -55,7 +55,7 @@ DROP TABLE IF EXISTS `player` ;
 CREATE  TABLE IF NOT EXISTS `player` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `type` INT(11) NULL DEFAULT NULL ,
-  `user` INT(11) NOT NULL,
+  `user` VARCHAR(150) NOT NULL UNIQUE,
   `planet` INT(11) NOT NULL,
   `level` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`) ,
@@ -64,7 +64,7 @@ CREATE  TABLE IF NOT EXISTS `player` (
     REFERENCES `type` (`id`),
   CONSTRAINT `player_user`
 	FOREIGN KEY (`user`)
-    REFERENCES `user` (`id`),
+    REFERENCES `user` (`email`),
   CONSTRAINT `player_planet`
 	FOREIGN KEY (`planet`)
 	REFERENCES `planet` (`id`)
