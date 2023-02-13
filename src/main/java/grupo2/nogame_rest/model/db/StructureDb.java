@@ -22,6 +22,6 @@ public class StructureDb implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String structure_name;
+    private String name;
     private String upgrade_time_formula;
 }

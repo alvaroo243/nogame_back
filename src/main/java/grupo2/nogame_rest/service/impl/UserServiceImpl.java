@@ -40,6 +40,15 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public Optional<UserDb> getUserDbById(Long id) {
+        Optional<UserDb> userDb=userRepository.findById(id);
+        if (userDb.isPresent())
+            return userDb;
+        else 
+            return Optional.empty();
+    }
+
+    @Override
     public Optional<UserEdit> getUserEditByEmail(String email) {
         Optional<UserDb> userDb=userRepository.findByEmail(email);
         if (userDb.isPresent())
@@ -59,11 +68,11 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Optional<UserEdit> update(UserEdit userEdit) {
-        Optional<UserEdit> userEditExistente = getUserEditById(userEdit.getId());
-        if (userEditExistente.isPresent()) {
-            userEdit.setCreated_ts(userEditExistente.get().getCreated_ts());
-            deleteById(userEdit.getId());
-            save(userEdit);
+        Optional<UserDb> userDb = getUserDbById(userEdit.getId());
+        if (userDb.isPresent()) {
+            userEdit.setCreated_ts(userDb.get().getCreated_ts());
+            UserMapper.INSTANCE.updateUserDbFromUserEdit(userEdit, userDb.get());
+            userRepository.save(userDb.get());
             return getUserEditById(userEdit.getId());
         } else {
             return Optional.empty();

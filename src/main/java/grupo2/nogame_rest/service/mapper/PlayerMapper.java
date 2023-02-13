@@ -18,5 +18,5 @@ public interface PlayerMapper {
     @Mapping(target = "planetsInfoNombres", source = "planets")
     PlayerList PlayerDbToPlayerList(PlayerDb playerDb);
     
-    List<PlayerList> playersToPlayerList(List<PlayerDb> playerDb);
+    List<PlayerList> playersToPlayerList(List<PlayerDb> playersDb);
 }

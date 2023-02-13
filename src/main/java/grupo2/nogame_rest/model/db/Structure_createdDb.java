@@ -27,13 +27,13 @@ public class Structure_createdDb implements Serializable{
     private Long id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "planet")
-    private PlanetDb planet_id;
+    private PlanetDb planet;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "structure")
-    private StructureDb structure_id;
+    private StructureDb structure;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "player")
-    private PlayerDb player_id;
+    private PlayerDb player;
     private Boolean upgrade_ongoing;
     private Integer current_level;
     

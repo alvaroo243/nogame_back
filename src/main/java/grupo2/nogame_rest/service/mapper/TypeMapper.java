@@ -13,5 +13,5 @@ public interface TypeMapper {
     TypeMapper INSTANCE = Mappers.getMapper(TypeMapper.class);
 
     TypeList TypeDbToTypeList(TypeDb typeDb);
-    List<TypeList> typesToTypeList(List<TypeDb> typeDb);
+    List<TypeList> typesToTypeList(List<TypeDb> typesDb);
 }

@@ -27,9 +27,9 @@ public class Research_requiredDb implements Serializable{
     private Long id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "research")
-    private ResearchDb research_id;
+    private ResearchDb research;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "research_required")
-    private Research_requiredDb research_required_id;
+    private Research_requiredDb research_required;
     private Integer level;
 }

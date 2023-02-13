@@ -1,0 +1,6 @@
+# /// PLANET ///
+
+## getPlanetsList
+GET http://localhost:8080/api/planet HTTP/1.1
+Content-Type: application/json
+###

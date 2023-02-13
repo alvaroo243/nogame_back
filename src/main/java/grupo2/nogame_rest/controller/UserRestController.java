@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import grupo2.nogame_rest.model.dto.List.UserList;
 import grupo2.nogame_rest.exception.ResourceNotFoundException;
 import grupo2.nogame_rest.model.db.UserDb;
+import grupo2.nogame_rest.model.dto.UserLogin;
 import grupo2.nogame_rest.model.dto.Edit.UserEdit;
-import grupo2.nogame_rest.model.dto.Info.UserInfo;
 import grupo2.nogame_rest.service.BcriptService;
 import grupo2.nogame_rest.service.UserService;
 import grupo2.nogame_rest.service.mapper.UserMapper;
@@ -52,7 +52,7 @@ public class UserRestController {
         return userService.save(userEdit);
     }
 
-    //@PutMapping("/user/edit/{id}")
+    @PutMapping("/user/edit/{id}")
     public ResponseEntity<UserEdit> updateUser(@PathVariable(value = "id") Integer id,@Valid @RequestBody UserEdit userEdit) throws RuntimeException{
         Optional<UserEdit> userEditNuevo = userService.update(userEdit);
         if (userEditNuevo.isPresent()) {
@@ -68,7 +68,7 @@ public class UserRestController {
     } 
 
     @PostMapping("/login")
-    public Optional<UserDb> loginUser(@Valid @RequestBody UserInfo userLogin) {
+    public Optional<UserDb> loginUser(@Valid @RequestBody UserLogin userLogin) {
         Optional<UserEdit> userEditExistente = userService.getUserEditByEmail(userLogin.getEmail());
         if(userEditExistente.isPresent()) {
             if(bcriptService.verifyPassword(userLogin.getPassword(), userEditExistente.get().getPassword())){

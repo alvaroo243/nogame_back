@@ -27,10 +27,10 @@ public class Structure_formulaDb implements Serializable{
     private Long id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "structure")
-    private StructureDb structure_id;
+    private StructureDb structure;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "resource")
-    private ResourceDb resource_id;
+    private ResourceDb resource;
     private String upgrade_formula;
     private String production_formula;
     

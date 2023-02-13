@@ -16,7 +16,7 @@ CREATE  TABLE IF NOT EXISTS `user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `nickname` VARCHAR(50) NOT NULL UNIQUE,
   `email` VARCHAR(150) NOT NULL UNIQUE,
-  `password` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(150) NOT NULL,
   `created_ts` DATE,
   PRIMARY KEY (`id`, `email`) 
 );
@@ -44,7 +44,7 @@ CREATE  TABLE IF NOT EXISTS `planet` (
   `name` VARCHAR(50) NOT NULL,
   `player` INT(11),
   `image` VARCHAR(250) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`, `name`)
 );
 
 -- -----------------------------------------------------
@@ -88,15 +88,15 @@ DROP TABLE IF EXISTS `resource_storage`;
 
 CREATE TABLE IF NOT EXISTS `resource_storage` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-    `resource_id` INT(11),
-    `planet_id` INT(11),
+    `resource` INT(11),
+    `planet` INT(11),
     `quantity` INT,
     PRIMARY KEY (`id`),
     CONSTRAINT `resource_storage_type`
-	  FOREIGN KEY (`resource_id`)
+	  FOREIGN KEY (`resource`)
       REFERENCES `resource` (`id`),
 	CONSTRAINT `resource_storage_planet`
-      FOREIGN KEY (`planet_id`)
+      FOREIGN KEY (`planet`)
       REFERENCES `planet` (`id`)
 );
 

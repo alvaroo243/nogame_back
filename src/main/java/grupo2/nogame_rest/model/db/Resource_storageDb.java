@@ -20,16 +20,16 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "resource_storage")
-public class ResourceStorageDb implements Serializable{
+public class Resource_storageDb implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "resource")
-    private ResourceDb resource_id;
+    private ResourceDb resourceDb;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "planet")
-    private PlanetDb planet_id;
+    private PlanetDb planetDb;
     private Integer quantity;
 }

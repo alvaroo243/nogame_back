@@ -1,0 +1,6 @@
+# /// RESOURCE_STORAGE ///
+
+## getResource_storagesList
+GET http://localhost:8080/api/resource_storage HTTP/1.1
+Content-Type: application/json
+###
