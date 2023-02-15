@@ -27,9 +27,9 @@ public class ResourceStorageDb implements Serializable{
     private Long id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "resource")
-    private ResourceDb resource_id;
+    private ResourceDb resource;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "planet")
-    private PlanetDb planet_id;
+    private PlanetDb planet;
     private Integer quantity;
 }

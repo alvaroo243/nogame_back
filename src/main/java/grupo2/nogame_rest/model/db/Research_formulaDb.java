@@ -27,9 +27,9 @@ public class Research_formulaDb implements Serializable{
     private Long id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "research")
-    private ResearchDb research_id;
+    private ResearchDb research;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "resource")
-    private ResourceDb resource_id;
+    private ResourceDb resource;
     private String upgrade_formula;
 }

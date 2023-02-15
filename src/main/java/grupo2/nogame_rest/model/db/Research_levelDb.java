@@ -28,10 +28,10 @@ public class Research_levelDb implements Serializable{
     private Long id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "player")
-    private PlayerDb player_id;
+    private PlayerDb player;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "research")
-    private ResearchDb research_id;
+    private ResearchDb research;
     private Integer current_level;
     private Boolean upgrade_ongoing;
     private Date upgrade_end_time;
