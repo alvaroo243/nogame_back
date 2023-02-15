@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "research_level")
+@Table(name = "research_required")
 public class Research_requiredDb implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
