@@ -18,6 +18,7 @@ public class Prerequisite_researchServiceImpl implements Prerequisite_researchSe
         this.prerequisite_researchRepository = prerequisite_researchRepository;
     }
 
+    @Override
     public List<Prerequisite_researchList> findAllPrerequisite_researchList() {
         return Prerequisite_researchMapper.INSTANCE.prerequisite_researchsToPrerequisite_researchList(prerequisite_researchRepository.findAll());
     }

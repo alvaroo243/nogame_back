@@ -19,7 +19,6 @@ PUT http://localhost:8080/api/user/edit/1 HTTP/1.1
 Content-Type: application/json
 
 {
-    "id": 1,
     "nickname": "user30",
     "email": "user1@gmail.com",
     "password": "user1"

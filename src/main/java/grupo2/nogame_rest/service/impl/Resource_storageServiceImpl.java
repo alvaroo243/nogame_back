@@ -18,6 +18,7 @@ public class Resource_storageServiceImpl implements Resource_storageService{
         this.resource_storageRepository = resource_storageRepository;
     }
 
+    @Override
     public List<Resource_storageList> findAllResource_storageList() {
         return Resource_storageMapper.INSTANCE.resources_storageToResource_storageList(resource_storageRepository.findAll());
     }

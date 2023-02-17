@@ -12,3 +12,7 @@ Content-Type: application/json
 GET http://localhost:8080/api/player/1 HTTP/1.1
 Content-Type: application/json
 ###
+## addTypePlayer
+POST http://localhost:8080/api/player/1/type/1 HTTP/1.1
+Content-Type: application/json
+###

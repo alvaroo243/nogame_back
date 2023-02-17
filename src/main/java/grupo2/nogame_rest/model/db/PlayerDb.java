@@ -21,8 +21,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@EqualsAndHashCode(exclude = { "planets"})
-@ToString(exclude = { "planets"})
+@EqualsAndHashCode(exclude = { "planetsDb"})
+@ToString(exclude = { "planetsDb"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -37,9 +37,10 @@ public class PlayerDb implements Serializable{
     @JoinColumn(name = "type")
     private TypeDb typeDb;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "userId", referencedColumnName = "id")
+    @JoinColumn(name = "userEmail", referencedColumnName = "email")
     private UserDb userDb;
     @OneToMany(mappedBy = "playerDb")
-    private Set<PlanetDb> planets = new HashSet<>();
+    private Set<PlanetDb> planetsDb = new HashSet<>();
     private Integer level;
 }

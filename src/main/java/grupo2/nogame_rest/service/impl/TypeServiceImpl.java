@@ -18,6 +18,7 @@ public class TypeServiceImpl implements TypeService{
         this.typeRepository = typeRepository;
     }
 
+    @Override
     public List<TypeList> findAllTypeList() {
         return TypeMapper.INSTANCE.typesToTypeList(typeRepository.findAll());
     }

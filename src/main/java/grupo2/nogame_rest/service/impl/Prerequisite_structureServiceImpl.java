@@ -18,6 +18,7 @@ public class Prerequisite_structureServiceImpl implements Prerequisite_structure
         this.prerequisite_structureRepository = prerequisite_structureRepository;
     }
 
+    @Override
     public List<Prerequisite_structureList> findAllPrerequisite_structureList() {
         return Prerequisite_structureMapper.INSTANCE.prerequisite_structuresToPrerequisite_structureList(prerequisite_structureRepository.findAll());
     }

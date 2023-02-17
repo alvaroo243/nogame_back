@@ -18,6 +18,7 @@ public class StructureServiceImpl implements StructureService{
         this.structureRepository = structureRepository;
     }
 
+    @Override
     public List<StructureList> findAllStructureList() {
         return StructureMapper.INSTANCE.structuresToStructureList(structureRepository.findAll());
     }

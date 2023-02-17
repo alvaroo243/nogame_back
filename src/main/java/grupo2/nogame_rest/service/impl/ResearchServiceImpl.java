@@ -18,6 +18,7 @@ public class ResearchServiceImpl implements ResearchService{
         this.researchRepository = researchRepository;
     }
 
+    @Override
     public List<ResearchList> findAllResearchList() {
         return ResearchMapper.INSTANCE.researchToResearchList(researchRepository.findAll());
     }

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import grupo2.nogame_rest.model.dto.List.UserList;
+import grupo2.nogame_rest.model.dto.New.UserNew;
 import grupo2.nogame_rest.model.db.UserDb;
 import grupo2.nogame_rest.model.dto.Edit.UserEdit;
 import grupo2.nogame_rest.repository.UserRepository;
@@ -20,19 +21,29 @@ public class UserServiceImpl implements UserService{
         this.userRepository = userRepository;
     }
 
+    @Override
     public List<UserList> findAllUserList() {
         return UserMapper.INSTANCE.usersToUserList(userRepository.findAll());
     }
 
     @Override
-    public UserEdit save(UserEdit userEdit) {
-        UserDb userDb = userRepository.save(UserMapper.INSTANCE.userEditToUserDb(userEdit));
-        return UserMapper.INSTANCE.userDbToUserEdit(userDb);
+    public UserNew save(UserNew userNew) {
+        UserDb userDb = userRepository.save(UserMapper.INSTANCE.userNewToUserDb(userNew));
+        return UserMapper.INSTANCE.userDbToUserNew(userDb);
     }
 
     @Override
     public Optional<UserEdit> getUserEditById(Long id) {
         Optional<UserDb> userDb=userRepository.findById(id);
+        if (userDb.isPresent())
+            return Optional.of(UserMapper.INSTANCE.userDbToUserEdit(userDb.get()));
+        else 
+            return Optional.empty();
+    }
+
+    @Override
+    public Optional<UserEdit> getUserEditByEmail(String email) {
+        Optional<UserDb> userDb=userRepository.findByEmail(email);
         if (userDb.isPresent())
             return Optional.of(UserMapper.INSTANCE.userDbToUserEdit(userDb.get()));
         else 
@@ -49,19 +60,29 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Optional<UserEdit> getUserEditByEmail(String email) {
+    public Optional<UserDb> getUserDbByEmail(String email) {
         Optional<UserDb> userDb=userRepository.findByEmail(email);
         if (userDb.isPresent())
-            return Optional.of(UserMapper.INSTANCE.userDbToUserEdit(userDb.get()));
+            return userDb;
         else 
             return Optional.empty();
     }
+
 
     @Override
     public String deleteById(Long id) {
         return userRepository.findById(id)
         .map(a-> {
                 userRepository.deleteById(id);
+                return "Deleted";
+            }).orElse("Not Deleted");
+    }
+
+    @Override
+    public String deleteByEmail(String email) {
+        return userRepository.findByEmail(email)
+        .map(a-> {
+                userRepository.deleteByEmail(email);
                 return "Deleted";
             }).orElse("Not Deleted");
     }

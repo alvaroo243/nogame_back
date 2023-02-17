@@ -19,10 +19,12 @@ public class PlanetServiceImpl implements PlanetService{
         this.planetRepository = planetRepository;
     }
 
+    @Override
     public List<PlanetList> findAllPlanetList() {
         return PlanetMapper.INSTANCE.planetsToPlanetList(planetRepository.findAll());
     }
 
+    @Override
     public Optional<PlanetDb> getPlayerDbById(Long id){
         return planetRepository.findById(id);
     }

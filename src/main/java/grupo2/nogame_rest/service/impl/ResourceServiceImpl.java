@@ -18,6 +18,7 @@ public class ResourceServiceImpl implements ResourceService{
         this.resourceRepository = resourceRepository;
     }
 
+    @Override
     public List<ResourceList> findAllResourceList() {
         return ResourceMapper.INSTANCE.resourcesToResourceList(resourceRepository.findAll());
     }

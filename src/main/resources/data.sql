@@ -16,7 +16,7 @@ CREATE  TABLE IF NOT EXISTS `user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `nickname` VARCHAR(50) NOT NULL UNIQUE,
   `email` VARCHAR(150) NOT NULL UNIQUE,
-  `password` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(150) NOT NULL,
   `created_ts` DATE,
   PRIMARY KEY (`id`, `email`) 
 );
@@ -33,6 +33,15 @@ CREATE  TABLE IF NOT EXISTS `type` (
   `disadvantages` TEXT NOT NULL,
   PRIMARY KEY (`id`,`name`) 
 );
+
+INSERT INTO type (name,advantages,disadvantages)
+VALUES ('General','Tiene mucho ataque','No consigue tantos recursos y necesita mas tiempo para investigar');
+
+INSERT INTO type (name,advantages,disadvantages)
+VALUES ('Investigador','Investigas mas con menos tiempo','Tienes menor ataque y no consigues tantos recursos');
+
+INSERT INTO type (name,advantages,disadvantages)
+VALUES ('Recolector','Reolectas mas con menos tiempo','Tienes menor ataque y necesitas mas tiempo para investigar');
 
 -- -----------------------------------------------------
 -- Table `planet`
@@ -55,19 +64,19 @@ DROP TABLE IF EXISTS `player` ;
 CREATE  TABLE IF NOT EXISTS `player` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(50) UNIQUE NULL DEFAULT NULL,
-  `user` VARCHAR(150) NOT NULL UNIQUE,
-  `planet` INT(11) NOT NULL,
+  `userId` INT(11) NOT NULL UNIQUE,
+  `userEmail` VARCHAR(150) NOT NULL UNIQUE,
   `level` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`) ,
   CONSTRAINT `player_type`
 	FOREIGN KEY (`type`)
     REFERENCES `type` (`name`),
-  CONSTRAINT `player_user`
-	FOREIGN KEY (`user`)
-    REFERENCES `user` (`email`),
-  CONSTRAINT `player_planet`
-	FOREIGN KEY (`planet`)
-	REFERENCES `planet` (`id`)
+  CONSTRAINT `player_userId`
+	FOREIGN KEY (`userId`)
+    REFERENCES `user` (`id`),
+  CONSTRAINT `player_userEmail`
+	FOREIGN KEY (`userEmail`)
+    REFERENCES `user` (`email`)
 );
 
 -- -----------------------------------------------------
@@ -80,6 +89,16 @@ CREATE TABLE IF NOT EXISTS `resource` (
     `name` VARCHAR(50) NOT NULL UNIQUE,
     PRIMARY KEY (`id`,`name`)
 );
+
+INSERT INTO resource (name)
+VALUES ('Piedra');
+INSERT INTO resource (name)
+VALUES ('Cristal');
+INSERT INTO resource (name)
+VALUES ('Hierro');
+INSERT INTO resource (name)
+VALUES ('Petroleo');
+
 -- -----------------------------------------------------
 -- Table `resource_storage`
 -- -----------------------------------------------------
@@ -87,15 +106,15 @@ DROP TABLE IF EXISTS `resource_storage`;
 
 CREATE TABLE IF NOT EXISTS `resource_storage` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-    `resource_id` VARCHAR(150) NOT NULL UNIQUE,
-    `planet_id` INT(11),
+    `resource` VARCHAR(150) NOT NULL UNIQUE,
+    `planet` INT(11),
     `quantity` INT(11),
     PRIMARY KEY (`id`),
     CONSTRAINT `resource_storage_type`
-	  FOREIGN KEY (`resource_id`)
+	  FOREIGN KEY (`resource`)
       REFERENCES `resource` (`name`),
 	CONSTRAINT `resource_storage_planet`
-      FOREIGN KEY (`planet_id`)
+      FOREIGN KEY (`planet`)
       REFERENCES `planet` (`id`)
 );
 
@@ -128,6 +147,15 @@ CREATE TABLE IF NOT EXISTS `structure` (
 	PRIMARY KEY (`id`,`name`)
 );
 
+INSERT INTO structure (name,upgrade_time_formula)
+VALUES ('Recolector de piedra','50');
+INSERT INTO structure (name,upgrade_time_formula)
+VALUES ('Recolector de cristal', '50');
+INSERT INTO structure (name,upgrade_time_formula)
+VALUES ('Recolector de hierro', '50');
+INSERT INTO structure (name,upgrade_time_formula)
+VALUES ('Recolector de petroleo','50');
+
 -- -----------------------------------------------------
 -- Table `structure_formula`
 -- -----------------------------------------------------
@@ -147,6 +175,18 @@ CREATE TABLE IF NOT EXISTS `structure_formula`(
 		FOREIGN KEY(`resource`)
 		REFERENCES `resource`(`name`)
 );
+
+INSERT INTO structure_formula(structure,resource,upgrade_formula,production_formula)
+VALUES('Recolector de piedra','Piedra','asdf','asdf');
+
+INSERT INTO structure_formula(structure,resource,upgrade_formula,production_formula)
+VALUES('Recolector de cristal','Cristal','asdf','asdf');
+
+INSERT INTO structure_formula(structure,resource,upgrade_formula,production_formula)
+VALUES('Recolector de hierro','Hierro','asdf','asdf');
+
+INSERT INTO structure_formula(structure,resource,upgrade_formula,production_formula)
+VALUES('Recolector de petroleo','Petroleo','asdf','asdf');
 
 -- -----------------------------------------------------
 -- Table `structure_created`
@@ -207,7 +247,7 @@ DROP TABLE IF EXISTS `research_level`;
 
 CREATE TABLE IF NOT EXISTS `research_level`(
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`player` VARCHAR(50) NOT NULL,
+	`player` INT(11) NOT NULL,
 	`research` INT(11) NOT NULL,
 	`current_level` INT(11) DEFAULT 0,
 	`upgrade_ongoing` BOOLEAN DEFAULT 0 NOT NULL,
@@ -218,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `research_level`(
 		REFERENCES `research`(`id`),
 	CONSTRAINT `player`
 		FOREIGN KEY (`player`)
-		REFERENCES `player`(`user`)
+		REFERENCES `player`(`userId`)
 );
 
 

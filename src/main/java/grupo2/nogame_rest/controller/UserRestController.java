@@ -1,6 +1,6 @@
 package grupo2.nogame_rest.controller;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,11 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import grupo2.nogame_rest.model.dto.List.UserList;
+import grupo2.nogame_rest.model.dto.New.PlayerNew;
+import grupo2.nogame_rest.model.dto.New.UserNew;
 import grupo2.nogame_rest.exception.ResourceNotFoundException;
 import grupo2.nogame_rest.model.db.UserDb;
 import grupo2.nogame_rest.model.dto.UserLogin;
 import grupo2.nogame_rest.model.dto.Edit.UserEdit;
 import grupo2.nogame_rest.service.BcriptService;
+import grupo2.nogame_rest.service.PlayerService;
 import grupo2.nogame_rest.service.UserService;
 import grupo2.nogame_rest.service.mapper.UserMapper;
 
@@ -32,10 +35,12 @@ import grupo2.nogame_rest.service.mapper.UserMapper;
 public class UserRestController {
     
     private UserService userService;
+    private PlayerService playerService;
     private BcriptService bcriptService;
 
-    public UserRestController(UserService userService, BcriptService bcriptService) {
+    public UserRestController(UserService userService, PlayerService playerService, BcriptService bcriptService) {
         this.userService = userService;
+        this.playerService = playerService;
         this.bcriptService = bcriptService;
     }
 
@@ -45,26 +50,32 @@ public class UserRestController {
     }
 
     @PostMapping("/register")
-    public UserEdit registerUser(@Valid @RequestBody UserEdit userEdit) {
-        String passwordCripted = bcriptService.hashPassword(userEdit.getPassword());
-        userEdit.setPassword(passwordCripted);
-        userEdit.setCreated_ts(new Date());
-        return userService.save(userEdit);
+    public UserNew registerUser(@Valid @RequestBody UserNew userNew) {
+        String passwordCripted = bcriptService.hashPassword(userNew.getPassword());
+        userNew.setPassword(passwordCripted);
+        userNew.setCreated_ts(LocalDateTime.now());
+        userService.save(userNew);
+        PlayerNew playerNew = new PlayerNew();
+        UserNew userNewSave = UserMapper.INSTANCE.userDbToUserNew(userService.getUserDbByEmail(userNew.getEmail()).get());
+        playerNew.setUserEmail(userNewSave.getEmail());
+        playerNew.setUserId(userNewSave.getId());
+        playerService.save(playerNew);
+        return userNewSave;
     }
 
-    @PutMapping("/user/edit/{id}")
-    public ResponseEntity<UserEdit> updateUser(@PathVariable(value = "id") Integer id,@Valid @RequestBody UserEdit userEdit) throws RuntimeException{
+    @PutMapping("/user/edit")
+    public ResponseEntity<UserEdit> updateUser(@Valid @RequestBody UserEdit userEdit) throws RuntimeException{
         Optional<UserEdit> userEditNuevo = userService.update(userEdit);
         if (userEditNuevo.isPresent()) {
             return ResponseEntity.ok().body(userEditNuevo.get());
         } else {
-            throw new ResourceNotFoundException("User not found on :: "+id);
+            throw new ResourceNotFoundException("User not found on :: "+userEditNuevo.get().getId());
         }
     }
 
-    @DeleteMapping("/user/delete/{id}")
-    public String deleteById(@PathVariable(value = "id") Long id) {
-        return userService.deleteById(id);
+    @DeleteMapping("/user/delete/{email}")
+    public String deleteByEmail(@PathVariable(value = "email") String email) {
+        return userService.deleteByEmail(email);
     } 
 
     @PostMapping("/login")
@@ -77,6 +88,5 @@ public class UserRestController {
         }
         return Optional.empty();
     }
-
 
 }

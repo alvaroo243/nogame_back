@@ -18,6 +18,7 @@ public class TroopsServiceImpl implements TroopsService{
         this.troopsRepository = troopsRepository;
     }
 
+    @Override
     public List<TroopsList> findAllTroopsList() {
         return TroopsMapper.INSTANCE.troopsToTroopsList(troopsRepository.findAll());
     }
