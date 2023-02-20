@@ -13,5 +13,6 @@ public class PlanetEdit implements Serializable{
     private static final long serialVersionUID = 1L;
     private Long id;
     private String name;
-    private Long player_id;
+    private Long playerId;
+    private String image;
 }

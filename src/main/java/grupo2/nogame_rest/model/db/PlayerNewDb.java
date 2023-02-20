@@ -23,8 +23,6 @@ public class PlayerNewDb implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "userId")
+    @Column(name = "user")
     private Long userId;
-    @Column(name = "userEmail")
-    private String userEmail;
 }

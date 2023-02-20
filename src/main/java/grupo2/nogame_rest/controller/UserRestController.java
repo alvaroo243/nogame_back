@@ -21,10 +21,13 @@ import grupo2.nogame_rest.model.dto.List.UserList;
 import grupo2.nogame_rest.model.dto.New.PlayerNew;
 import grupo2.nogame_rest.model.dto.New.UserNew;
 import grupo2.nogame_rest.exception.ResourceNotFoundException;
+import grupo2.nogame_rest.model.db.PlayerDb;
 import grupo2.nogame_rest.model.db.UserDb;
 import grupo2.nogame_rest.model.dto.UserLogin;
+import grupo2.nogame_rest.model.dto.Edit.PlanetEdit;
 import grupo2.nogame_rest.model.dto.Edit.UserEdit;
 import grupo2.nogame_rest.service.BcriptService;
+import grupo2.nogame_rest.service.PlanetService;
 import grupo2.nogame_rest.service.PlayerService;
 import grupo2.nogame_rest.service.UserService;
 import grupo2.nogame_rest.service.mapper.UserMapper;
@@ -36,11 +39,13 @@ public class UserRestController {
     
     private UserService userService;
     private PlayerService playerService;
+    private PlanetService planetService;
     private BcriptService bcriptService;
 
-    public UserRestController(UserService userService, PlayerService playerService, BcriptService bcriptService) {
+    public UserRestController(UserService userService, PlayerService playerService, PlanetService planetService, BcriptService bcriptService) {
         this.userService = userService;
         this.playerService = playerService;
+        this.planetService = planetService;
         this.bcriptService = bcriptService;
     }
 
@@ -57,9 +62,12 @@ public class UserRestController {
         userService.save(userNew);
         PlayerNew playerNew = new PlayerNew();
         UserNew userNewSave = UserMapper.INSTANCE.userDbToUserNew(userService.getUserDbByEmail(userNew.getEmail()).get());
-        playerNew.setUserEmail(userNewSave.getEmail());
         playerNew.setUserId(userNewSave.getId());
         playerService.save(playerNew);
+        Optional<PlayerDb> playerSave = playerService.getPlayerDbByUserEmail(userNewSave.getEmail());
+        Optional<PlanetEdit> planetEdit = planetService.getPlanetWithoutPlayer();
+        planetEdit.get().setPlayerId(playerSave.get().getId());
+        planetService.update(planetEdit.get());
         return userNewSave;
     }
 

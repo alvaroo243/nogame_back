@@ -29,7 +29,7 @@ public class PlanetRestController {
 
     @GetMapping("/planet/{id}/isColonized")
     public boolean isColonized(@PathVariable("id") Long id) {
-        if (planetService.getPlayerDbById(id).get().getPlayerDb() != null) {
+        if (planetService.getPlanetDbById(id).get().getPlayerDb() != null) {
             return true;
         } else {
             return false;

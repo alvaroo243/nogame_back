@@ -25,7 +25,7 @@ public class PlayerEditDb implements Serializable{
     private Long id;
     @Column(name = "type")
     private Long typeId;
-    @Column(name = "userEmail")
-    private String userEmail;
+    @Column(name = "user")
+    private Long userId;
     private Integer level;
 }

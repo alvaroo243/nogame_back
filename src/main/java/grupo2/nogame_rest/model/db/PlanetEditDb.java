@@ -1,7 +1,6 @@
 package grupo2.nogame_rest.model.db;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,15 +17,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "user")
-public class UserDb implements Serializable{
+@Table(name = "planet")
+public class PlanetEditDb implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nickname;
-    private String email;
-    private String password;
-    @Column(name = "created_ts", columnDefinition = "TIMESTAMP")
-    private LocalDateTime created_ts;
+    private String name;
+    @Column(name = "player")
+    private Long playerId;
+    private String image;
 }

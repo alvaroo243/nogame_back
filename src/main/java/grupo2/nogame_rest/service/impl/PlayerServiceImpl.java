@@ -64,6 +64,17 @@ public class PlayerServiceImpl implements PlayerService{
     }
 
     @Override
+    public Optional<PlayerDb> getPlayerDbByUserEmail(String email) {
+        List<PlayerDb> players = playerRepository.findAll();
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).getUserDb().getEmail().equals(email)) {
+                return Optional.of(players.get(i));
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Override
     public PlayerNew save(PlayerNew playerNew) {
         PlayerNewDb playerNewDb = playerRepository.save(PlayerMapper.INSTANCE.playerNewToPlayerNewDb(playerNew));
         return PlayerMapper.INSTANCE.playerNewDbToPlayerNew(playerNewDb);

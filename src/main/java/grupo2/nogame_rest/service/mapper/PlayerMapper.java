@@ -24,11 +24,11 @@ public interface PlayerMapper {
     PlayerList PlayerDbToPlayerList(PlayerDb playerDb);
 
     @Mapping(target = "typeId", source = "typeDb.id")
-    @Mapping(target = "userEmail", source = "userDb.email")
+    @Mapping(target = "userId", source = "userDb.id")
     PlayerEdit playerDbToPlayerEdit(PlayerDb playerDb);
 
     @Mapping(target = "typeId", source = "typeDb.id")
-    @Mapping(target = "userEmail", source = "userDb.email")
+    @Mapping(target = "userId", source = "userDb.id")
     PlayerEditDb playerDbToPlayerEditDb(PlayerDb playerDb);
     
     List<PlayerList> playersToPlayerList(List<PlayerDb> playersDb);

@@ -13,6 +13,6 @@ public class PlayerEdit implements Serializable{
     private static final long serialVersionUID = 1L;
     private Long id;
     private Long typeId;
-    private String userEmail;
+    private Long userId;
     private Integer level;
 }

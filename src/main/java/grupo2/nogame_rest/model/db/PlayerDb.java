@@ -37,8 +37,7 @@ public class PlayerDb implements Serializable{
     @JoinColumn(name = "type")
     private TypeDb typeDb;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId", referencedColumnName = "id")
-    @JoinColumn(name = "userEmail", referencedColumnName = "email")
+    @JoinColumn(name = "user")
     private UserDb userDb;
     @OneToMany(mappedBy = "playerDb")
     private Set<PlanetDb> planetsDb = new HashSet<>();

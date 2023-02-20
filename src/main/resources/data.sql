@@ -18,7 +18,7 @@ CREATE  TABLE IF NOT EXISTS `user` (
   `email` VARCHAR(150) NOT NULL UNIQUE,
   `password` VARCHAR(150) NOT NULL,
   `created_ts` DATE,
-  PRIMARY KEY (`id`, `email`) 
+  PRIMARY KEY (`id`)
 );
 
 -- -----------------------------------------------------
@@ -31,7 +31,7 @@ CREATE  TABLE IF NOT EXISTS `type` (
   `name` VARCHAR(50) UNIQUE,
   `advantages` TEXT NOT NULL,
   `disadvantages` TEXT NOT NULL,
-  PRIMARY KEY (`id`,`name`) 
+  PRIMARY KEY (`id`) 
 );
 
 INSERT INTO type (name,advantages,disadvantages)
@@ -56,6 +56,15 @@ CREATE  TABLE IF NOT EXISTS `planet` (
   PRIMARY KEY (`id`)
 );
 
+INSERT INTO planet (name)
+VALUES ('Planeta 1');
+INSERT INTO planet (name)
+VALUES ('Planeta 2');
+INSERT INTO planet (name)
+VALUES ('Planeta 3');
+INSERT INTO planet (name)
+VALUES ('Planeta 4');
+
 -- -----------------------------------------------------
 -- Table `player`
 -- -----------------------------------------------------
@@ -63,20 +72,16 @@ DROP TABLE IF EXISTS `player` ;
 
 CREATE  TABLE IF NOT EXISTS `player` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `type` VARCHAR(50) UNIQUE NULL DEFAULT NULL,
-  `userId` INT(11) NOT NULL UNIQUE,
-  `userEmail` VARCHAR(150) NOT NULL UNIQUE,
+  `type` INT(11) NULL DEFAULT NULL,
+  `user` INT(11) NOT NULL,
   `level` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`) ,
   CONSTRAINT `player_type`
 	FOREIGN KEY (`type`)
-    REFERENCES `type` (`name`),
-  CONSTRAINT `player_userId`
-	FOREIGN KEY (`userId`)
-    REFERENCES `user` (`id`),
-  CONSTRAINT `player_userEmail`
-	FOREIGN KEY (`userEmail`)
-    REFERENCES `user` (`email`)
+    REFERENCES `type` (`id`),
+  CONSTRAINT `player_user`
+	FOREIGN KEY (`user`)
+    REFERENCES `user` (`id`)
 );
 
 -- -----------------------------------------------------
@@ -87,7 +92,7 @@ DROP TABLE IF EXISTS `resource`;
 CREATE TABLE IF NOT EXISTS `resource` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(50) NOT NULL UNIQUE,
-    PRIMARY KEY (`id`,`name`)
+    PRIMARY KEY (`id`)
 );
 
 INSERT INTO resource (name)
@@ -144,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `structure` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(50) NOT NULL UNIQUE,
 	`upgrade_time_formula` VARCHAR(50) NOT NULL,
-	PRIMARY KEY (`id`,`name`)
+	PRIMARY KEY (`id`)
 );
 
 INSERT INTO structure (name,upgrade_time_formula)
@@ -258,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `research_level`(
 		REFERENCES `research`(`id`),
 	CONSTRAINT `player`
 		FOREIGN KEY (`player`)
-		REFERENCES `player`(`userId`)
+		REFERENCES `player`(`user`)
 );
 
 
