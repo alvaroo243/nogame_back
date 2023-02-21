@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import grupo2.nogame_rest.model.dto.List.UserList;
-import grupo2.nogame_rest.model.dto.New.UserNew;
 import grupo2.nogame_rest.model.db.UserDb;
 import grupo2.nogame_rest.model.dto.Edit.UserEdit;
 import grupo2.nogame_rest.repository.UserRepository;
@@ -27,9 +26,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserNew save(UserNew userNew) {
-        UserDb userDb = userRepository.save(UserMapper.INSTANCE.userNewToUserDb(userNew));
-        return UserMapper.INSTANCE.userDbToUserNew(userDb);
+    public UserDb save(UserDb userDb) {
+        return userRepository.save(userDb);
     }
 
     @Override
@@ -66,6 +64,21 @@ public class UserServiceImpl implements UserService{
             return userDb;
         else 
             return Optional.empty();
+    }
+
+    @Override
+    public Optional<UserDb> getByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public boolean existsByNickname(String nickname) {
+        return userRepository.existsByNickname(nickname);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
     }
 
 

@@ -1,4 +1,4 @@
-package grupo2.nogame_rest.model.dto;
+package grupo2.nogame_rest.security.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserLogin {
-    private String email;
-    private String password;
+public class Mensaje {
+    private String mensaje;
 }

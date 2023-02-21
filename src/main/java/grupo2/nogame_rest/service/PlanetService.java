@@ -10,14 +10,9 @@ import grupo2.nogame_rest.model.dto.List.PlanetList;
 
 public interface PlanetService {
     public List<PlanetList> findAllPlanetList();    
-
     public Optional<PlanetDb> getPlanetDbById(Long id);
-
     public Optional<PlanetEdit> getPlanetWithoutPlayer();
-
     public Optional<PlanetEditDb> getPlanetEditDbById(Long id);
-
     public Optional<PlanetEdit> getPlanetEditById(Long id);
-
     public Optional<PlanetEdit> update(PlanetEdit planetEdit);
 }

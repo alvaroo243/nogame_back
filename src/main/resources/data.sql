@@ -1,11 +1,19 @@
 -- -----------------------------------------------------
 -- DataBase `nogame_database`
 -- -----------------------------------------------------
-DROP DATABASE IF EXISTS `nogame_database`;
 
-CREATE DATABASE IF NOT EXISTS `nogame_database`;
+CREATE USER IF NOT EXISTS 'nogame'@'localhost' IDENTIFIED WITH mysql_native_password BY 'grupo2';
+GRANT ALL PRIVILEGES ON *.* TO 'nogame'@'localhost' WITH GRANT OPTION;
+ALTER USER 'nogame'@'localhost' REQUIRE NONE WITH 
+MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0; 
 
-USE `nogame_database`;
+DROP DATABASE IF EXISTS `nogame`;
+
+CREATE DATABASE IF NOT EXISTS `nogame`;
+
+GRANT ALL PRIVILEGES ON `nogame`.* TO 'nogame'@'localhost';
+
+USE `nogame`;
 
 -- -----------------------------------------------------
 -- Table `user`
@@ -20,6 +28,47 @@ CREATE  TABLE IF NOT EXISTS `user` (
   `created_ts` DATE,
   PRIMARY KEY (`id`)
 );
+
+-- -----------------------------------------------------
+-- TABLAS NECESARIAS PARA IMPLEMENTAR LA SEGURIDAD
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Table `roles`
+-- -----------------------------------------------------
+
+DROP TABLE IF EXISTS `roles` ;
+
+CREATE  TABLE IF NOT EXISTS `roles` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(255) NOT NULL ,
+  PRIMARY KEY (`id`) 
+);
+
+-- -----------------------------------------------------
+-- Table `usuarios_roles`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `usuarios_roles` ;
+
+CREATE  TABLE IF NOT EXISTS `usuarios_roles` (
+  idUsuario INT(11)  NOT NULL,  
+  idRol INT(11)  NOT NULL,
+  PRIMARY KEY (`idUsuario`,`idRol`),
+  CONSTRAINT `usuarios_roles_fk_usuarios`
+    FOREIGN KEY (`idUsuario` )
+    REFERENCES `user` (`id` ),
+  CONSTRAINT `usuarios_roles_fk_roles`
+    FOREIGN KEY (`idRol` )
+    REFERENCES `roles` (`id` ) 
+);
+
+INSERT INTO `roles` (`id`, `nombre`) VALUES
+(1, 'ROLE_ADMIN'),
+(2, 'ROLE_USER');
+
+-- -----------------------------------------------------
+-- FIN TABLAS NECESARIAS PARA IMPLEMENTAR LA SEGURIDAD
+-- -----------------------------------------------------
 
 -- -----------------------------------------------------
 -- Table `type`
@@ -52,7 +101,7 @@ CREATE  TABLE IF NOT EXISTS `planet` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
   `player` INT(11),
-  `image` VARCHAR(250) DEFAULT NULL,
+  `image` VARCHAR(250) DEFAULT NULL UNIQUE,
   PRIMARY KEY (`id`)
 );
 
@@ -72,7 +121,7 @@ DROP TABLE IF EXISTS `player` ;
 
 CREATE  TABLE IF NOT EXISTS `player` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `type` INT(11) NULL DEFAULT NULL,
+  `type` INT(11) DEFAULT NULL,
   `user` INT(11) NOT NULL,
   `level` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`) ,
@@ -111,7 +160,7 @@ DROP TABLE IF EXISTS `resource_storage`;
 
 CREATE TABLE IF NOT EXISTS `resource_storage` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-    `resource` VARCHAR(150) NOT NULL UNIQUE,
+    `resource` VARCHAR(150) NOT NULL,
     `planet` INT(11),
     `quantity` INT(11),
     PRIMARY KEY (`id`),
@@ -130,14 +179,14 @@ DROP TABLE IF EXISTS `troops`;
 
 CREATE TABLE IF NOT EXISTS `troops` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(50) NOT NULL UNIQUE,
+    `name` INT(11) NOT NULL UNIQUE,
     `special` BOOLEAN DEFAULT FALSE,
     `value` INT NOT NULL DEFAULT 1,
-    `type` VARCHAR(50) UNIQUE,
+    `type` INT(11),
     PRIMARY KEY (`id`),
     CONSTRAINT `troop_type`
       FOREIGN KEY (`type`)
-      REFERENCES `type` (`name`)
+      REFERENCES `type` (`id`)
 );
 
 -- -----------------------------------------------------
@@ -168,8 +217,8 @@ DROP TABLE IF EXISTS `structure_formula`;
 
 CREATE TABLE IF NOT EXISTS `structure_formula`(
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`structure` VARCHAR(50) NOT NULL UNIQUE,
-	`resource` VARCHAR(150) NOT NULL UNIQUE,
+	`structure` VARCHAR(50) NOT NULL,
+	`resource` VARCHAR(150) NOT NULL,
 	`upgrade_formula` VARCHAR(50) NOT NULL,
 	`production_formula` VARCHAR(50) NOT NULL,
 	PRIMARY KEY (`id`),
@@ -200,7 +249,7 @@ DROP TABLE IF EXISTS `structure_created`;
 
 CREATE TABLE IF NOT EXISTS `structure_created`(
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`structure` VARCHAR(50) NOT NULL UNIQUE,
+	`structure` VARCHAR(50) NOT NULL,
 	`planet` INT(11) NOT NULL,
 	`player` VARCHAR(50) NOT NULL,
 	`upgrade_ongoing` BOOLEAN DEFAULT 0 NOT NULL,
@@ -263,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `research_level`(
 		REFERENCES `research`(`id`),
 	CONSTRAINT `player`
 		FOREIGN KEY (`player`)
-		REFERENCES `player`(`user`)
+		REFERENCES `player`(`id`)
 );
 
 
@@ -284,7 +333,7 @@ CREATE TABLE IF NOT EXISTS `research_formula`(
 		REFERENCES `research`(`id`),
 	CONSTRAINT `resource_formula`
 		FOREIGN KEY(`resource`)
-		REFERENCES `resource`(name)
+		REFERENCES `resource`(`name`)
 );
 
 -- -----------------------------------------------------
