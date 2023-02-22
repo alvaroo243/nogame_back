@@ -68,10 +68,23 @@ public class PlayerServiceImpl implements PlayerService{
         List<PlayerDb> players = playerRepository.findAll();
         for (int i = 0; i < players.size(); i++) {
             if (players.get(i).getUserDb().getEmail().equals(email)) {
-                return Optional.of(players.get(i));
+                PlayerDb playerDb = players.get(i);
+                return getPlayerDbById(playerDb.getId());
             }
         }
         return Optional.empty();
+    }
+
+    @Override
+    public PlayerList getPlayerListByUserEmail(String email) {
+        List<PlayerDb> players = playerRepository.findAll();
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).getUserDb().getEmail().equals(email)) {
+                PlayerDb playerDb = players.get(i);
+                return PlayerMapper.INSTANCE.PlayerDbToPlayerList(playerDb);
+            }
+        }
+        return null;
     }
 
     @Override

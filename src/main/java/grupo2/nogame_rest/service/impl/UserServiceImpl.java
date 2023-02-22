@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import grupo2.nogame_rest.model.dto.List.UserList;
 import grupo2.nogame_rest.model.db.UserDb;
+import grupo2.nogame_rest.model.db.UserEditDb;
 import grupo2.nogame_rest.model.dto.Edit.UserEdit;
 import grupo2.nogame_rest.repository.UserRepository;
 import grupo2.nogame_rest.service.UserService;
@@ -58,6 +59,15 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public Optional<UserEditDb> getUserEditDbById(Long id) {
+        Optional<UserEditDb> userEditDb= Optional.of(UserMapper.INSTANCE.UserDbToUserEditDb(userRepository.findById(id).get()));
+        if (userEditDb.isPresent())
+            return userEditDb;
+        else 
+            return Optional.empty();
+    }
+
+    @Override
     public Optional<UserDb> getUserDbByEmail(String email) {
         Optional<UserDb> userDb=userRepository.findByEmail(email);
         if (userDb.isPresent())
@@ -102,11 +112,11 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Optional<UserEdit> update(UserEdit userEdit) {
-        Optional<UserDb> userDb = getUserDbById(userEdit.getId());
-        if (userDb.isPresent()) {
-            userEdit.setCreated_ts(userDb.get().getCreated_ts());
-            UserMapper.INSTANCE.updateUserDbFromUserEdit(userEdit, userDb.get());
-            userRepository.save(userDb.get());
+        Optional<UserEditDb> userEditDb = getUserEditDbById(userEdit.getId());
+        if (userEditDb.isPresent()) {
+            userEdit.setCreated_ts(userEditDb.get().getCreated_ts());
+            UserMapper.INSTANCE.updateUserEditDbFromUserEdit(userEdit, userEditDb.get());
+            userRepository.save(userEditDb.get());
             return getUserEditById(userEdit.getId());
         } else {
             return Optional.empty();

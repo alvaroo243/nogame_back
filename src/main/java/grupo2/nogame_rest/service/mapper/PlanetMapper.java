@@ -11,9 +11,11 @@ import org.mapstruct.factory.Mappers;
 
 import grupo2.nogame_rest.model.db.PlanetDb;
 import grupo2.nogame_rest.model.db.PlanetEditDb;
+import grupo2.nogame_rest.model.db.PlanetNewDb;
 import grupo2.nogame_rest.model.dto.Edit.PlanetEdit;
 import grupo2.nogame_rest.model.dto.List.PlanetList;
-import grupo2.nogame_rest.model.dto.Info.PlanetInfoNombre;
+import grupo2.nogame_rest.model.dto.New.PlanetNew;
+import grupo2.nogame_rest.model.dto.Info.PlanetInfo;
 
 @Mapper
 public interface PlanetMapper {
@@ -21,7 +23,7 @@ public interface PlanetMapper {
 
     List<PlanetList> planetsToPlanetList(List<PlanetDb> planetDb);
 
-    Set<PlanetInfoNombre> planetsDbToPlanetsInfoNombre(Set<PlanetDb> planetsDb);
+    Set<PlanetInfo> planetsDbToPlanetsInfoNombre(Set<PlanetDb> planetsDb);
 
     @Mapping(target = "nicknamePlayer", source = "playerDb.userDb.nickname")
     PlanetList PlanetDbToPlanetList(PlanetDb planetDb);
@@ -34,7 +36,11 @@ public interface PlanetMapper {
 
     PlanetEditDb planetEditToPlanetEditDb(PlanetEdit planetEdit);
 
-    PlanetEditDb planetEditDbToPlanetEdit(PlanetEditDb planetEditDb);
+    PlanetEdit planetEditDbToPlanetEdit(PlanetEditDb planetEditDb);
+
+    PlanetNewDb planetNewToPlanetNewDb(PlanetNew planetNew);
+
+    PlanetNew planetNewDbToPlanetNew(PlanetNewDb planetNewDb);
 
     void updatePlanetEditDbFromPlanetEdit(PlanetEdit planetEdit,@MappingTarget PlanetEditDb planetEditDb);
 

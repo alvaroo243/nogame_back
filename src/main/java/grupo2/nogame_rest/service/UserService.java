@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import grupo2.nogame_rest.model.dto.List.UserList;
 import grupo2.nogame_rest.model.db.UserDb;
+import grupo2.nogame_rest.model.db.UserEditDb;
 import grupo2.nogame_rest.model.dto.Edit.UserEdit;
 
 public interface UserService {
@@ -18,6 +19,7 @@ public interface UserService {
     public Optional<UserDb> getUserDbById(Long id);
     public Optional<UserDb> getUserDbByEmail(String email);
     public Optional<UserDb> getByEmail(String email);
+    public Optional<UserEditDb> getUserEditDbById(Long id);
     public boolean existsByNickname(String nickname);
     public boolean existsByEmail(String email);
 }

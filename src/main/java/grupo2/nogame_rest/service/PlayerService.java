@@ -16,6 +16,7 @@ public interface PlayerService {
     public Optional<PlayerEdit> getPlayerEditById(Long id);
     public Optional<PlayerEditDb> getPlayerEditDbById(Long id);
     public Optional<PlayerDb> getPlayerDbByUserEmail(String email);
+    public PlayerList getPlayerListByUserEmail(String email);
     public PlayerNew save(PlayerNew playerNew);
     public Optional<PlayerEdit> update(PlayerEdit playerEdit);
 }

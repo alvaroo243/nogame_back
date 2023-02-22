@@ -19,9 +19,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import grupo2.nogame_rest.model.db.PlanetDb;
 import grupo2.nogame_rest.model.db.PlayerDb;
 import grupo2.nogame_rest.model.db.UserDb;
-import grupo2.nogame_rest.model.dto.Edit.PlanetEdit;
+import grupo2.nogame_rest.model.dto.Edit.UserEdit;
+import grupo2.nogame_rest.model.dto.List.PlayerList;
+import grupo2.nogame_rest.model.dto.New.PlanetNew;
 import grupo2.nogame_rest.model.dto.New.PlayerNew;
 import grupo2.nogame_rest.model.dto.New.UserNew;
 import grupo2.nogame_rest.security.dto.JwtDto;
@@ -34,6 +37,8 @@ import grupo2.nogame_rest.security.service.RolService;
 import grupo2.nogame_rest.service.PlanetService;
 import grupo2.nogame_rest.service.PlayerService;
 import grupo2.nogame_rest.service.UserService;
+import grupo2.nogame_rest.service.mapper.PlayerMapper;
+import grupo2.nogame_rest.service.mapper.UserMapper;
 
 @RestController
 @RequestMapping("/auth")
@@ -82,14 +87,21 @@ public class AuthController {
         }
         userDb.setRoles(rolesDb);
         userService.save(userDb);
+
         PlayerNew playerNew = new PlayerNew();
         UserDb userDbNew = userService.getUserDbByEmail(userNew.getEmail()).get();
         playerNew.setUserId(userDbNew.getId());
         playerService.save(playerNew);
+
         Optional<PlayerDb> playerSave = playerService.getPlayerDbByUserEmail(userDbNew.getEmail());
-        Optional<PlanetEdit> planetEdit = planetService.getPlanetWithoutPlayer();
-        planetEdit.get().setPlayerId(playerSave.get().getId());
-        planetService.update(planetEdit.get());
+        PlanetNew planetNew = planetService.createRandomPlanet(playerSave.get().getId(), true);
+        planetService.save(planetNew);
+
+        PlanetDb planetDbNew = planetService.getPlanetByPlayerId(playerSave.get().getId());
+        UserEdit userEdit = UserMapper.INSTANCE.userDbToUserEdit(userDbNew);
+        userEdit.setFirstPlanet(planetDbNew.getId());
+        userService.update(userEdit);
+        
         return ResponseEntity.status(HttpStatus.CREATED).body(new Mensaje("Usuario y Jugador creados"));
     }
     
@@ -105,7 +117,8 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication);
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-        JwtDto jwtDto = new JwtDto(jwt, loginUsuario.getEmail(), userDetails.getAuthorities());
+        PlayerList playerList = playerService.getPlayerListByUserEmail(loginUsuario.getEmail());
+        JwtDto jwtDto = new JwtDto(jwt, playerList, userDetails.getAuthorities());
         return ResponseEntity.status(HttpStatus.OK).body(jwtDto);
     }
 

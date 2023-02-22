@@ -18,9 +18,9 @@ import grupo2.nogame_rest.model.dto.New.PlayerNew;
 public interface PlayerMapper {
     PlayerMapper INSTANCE = Mappers.getMapper(PlayerMapper.class);
 
-    @Mapping(target = "nicknameUser", source = "userDb.nickname")
+    @Mapping(target = "userInfo", source = "userDb")
     @Mapping(target = "nameType", source = "typeDb.name")
-    @Mapping(target = "planetsInfoNombres", source = "planetsDb")
+    @Mapping(target = "planetsInfo", source = "planetsDb")
     PlayerList PlayerDbToPlayerList(PlayerDb playerDb);
 
     @Mapping(target = "typeId", source = "typeDb.id")

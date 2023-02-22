@@ -25,6 +25,7 @@ CREATE  TABLE IF NOT EXISTS `user` (
   `nickname` VARCHAR(50) NOT NULL UNIQUE,
   `email` VARCHAR(150) NOT NULL UNIQUE,
   `password` VARCHAR(150) NOT NULL,
+  `first` INT(11) DEFAULT NULL UNIQUE,
   `created_ts` DATE,
   PRIMARY KEY (`id`)
 );
@@ -93,28 +94,6 @@ INSERT INTO type (name,advantages,disadvantages)
 VALUES ('Recolector','Reolectas mas con menos tiempo','Tienes menor ataque y necesitas mas tiempo para investigar');
 
 -- -----------------------------------------------------
--- Table `planet`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `planet` ;
-
-CREATE  TABLE IF NOT EXISTS `planet` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(50) NOT NULL,
-  `player` INT(11),
-  `image` VARCHAR(250) DEFAULT NULL UNIQUE,
-  PRIMARY KEY (`id`)
-);
-
-INSERT INTO planet (name)
-VALUES ('Planeta 1');
-INSERT INTO planet (name)
-VALUES ('Planeta 2');
-INSERT INTO planet (name)
-VALUES ('Planeta 3');
-INSERT INTO planet (name)
-VALUES ('Planeta 4');
-
--- -----------------------------------------------------
 -- Table `player`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `player` ;
@@ -134,6 +113,23 @@ CREATE  TABLE IF NOT EXISTS `player` (
 );
 
 -- -----------------------------------------------------
+-- Table `planet`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `planet` ;
+
+CREATE  TABLE IF NOT EXISTS `planet` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL,
+  `player` INT(11),
+  `image` VARCHAR(250) DEFAULT NULL UNIQUE,
+  `first` BOOLEAN DEFAULT FALSE,
+  CONSTRAINT `planet_player` 
+    FOREIGN KEY (`player`) 
+	REFERENCES `player` (`id`),
+  PRIMARY KEY (`id`)
+);
+
+-- -----------------------------------------------------
 -- Table `resource`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `resource`;
@@ -141,6 +137,7 @@ DROP TABLE IF EXISTS `resource`;
 CREATE TABLE IF NOT EXISTS `resource` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(50) NOT NULL UNIQUE,
+	`image` VARCHAR(255) DEFAULT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -372,3 +369,5 @@ CREATE TABLE IF NOT EXISTS `prerequisite_research`(
 		FOREIGN KEY(`resource`)
 		REFERENCES `resource`(`name`)
 ); 
+
+ALTER TABLE `user` ADD FOREIGN KEY (`first`) REFERENCES `planet` (`id`);

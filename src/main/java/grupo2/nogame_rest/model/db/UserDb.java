@@ -37,6 +37,8 @@ public class UserDb implements Serializable{
     private String password;
     @Column(name = "created_ts", columnDefinition = "TIMESTAMP")
     private LocalDateTime created_ts;
+    @Column(name = "first")
+    private Long firstPlanet;
     @NotNull
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "idUsuario"), inverseJoinColumns = @JoinColumn(name = "idRol"))

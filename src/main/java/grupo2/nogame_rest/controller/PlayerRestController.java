@@ -33,7 +33,7 @@ public class PlayerRestController {
         return playerService.findAllPlayerList();
     }
 
-    @GetMapping("/player/{id}")
+    //@GetMapping("/player/{id}")
     public PlayerList getPlayerListById(@PathVariable("id") Long id) throws RuntimeException{
         Optional<PlayerList> playerList = playerService.getPlayerListById(id);
         if (playerList.isPresent()) {
@@ -66,6 +66,16 @@ public class PlayerRestController {
             return playerService.update(playerEdit).get();
         } else {
             throw new ResourceNotFoundException("Player not found :: "+idPlayer);
+        }
+    }
+
+    @GetMapping("/player/{email}")
+    public PlayerList getPlayerDbByEmail(@PathVariable ("email") String email) {
+        Optional<PlayerDb> playerDb = playerService.getPlayerDbByUserEmail(email);
+        if (playerDb.isPresent()) {
+            return PlayerMapper.INSTANCE.PlayerDbToPlayerList(playerDb.get());
+        } else {
+            throw new ResourceNotFoundException("Player not found :: "+email);
         }
     }
 }

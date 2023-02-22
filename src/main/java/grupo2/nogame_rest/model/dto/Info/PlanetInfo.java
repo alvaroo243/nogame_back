@@ -1,4 +1,4 @@
-package grupo2.nogame_rest.model.dto.Edit;
+package grupo2.nogame_rest.model.dto.Info;
 
 import java.io.Serializable;
 
@@ -9,16 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class PlanetEdit implements Serializable{
+public class PlanetInfo implements Serializable{
     private static final long serialVersionUID = 1L;
     private Long id;
     private String name;
-    private Long playerId;
     private String image;
-
-    public PlanetEdit(String name, Long playerId, String image) {
-        this.name = name;
-        this.playerId = playerId;
-        this.image = image;
-    }
 }
