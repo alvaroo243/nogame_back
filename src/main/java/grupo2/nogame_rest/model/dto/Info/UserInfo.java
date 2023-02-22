@@ -15,6 +15,5 @@ public class UserInfo implements Serializable{
     private Long id;
     private String nickname;
     private String email;
-    private String password;
     private LocalDateTime created_ts;
 }

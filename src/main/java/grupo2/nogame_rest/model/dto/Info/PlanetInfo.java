@@ -14,4 +14,5 @@ public class PlanetInfo implements Serializable{
     private Long id;
     private String name;
     private String image;
+    private Boolean first;
 }

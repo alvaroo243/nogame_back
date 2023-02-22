@@ -23,6 +23,9 @@ public interface PlanetMapper {
 
     List<PlanetList> planetsToPlanetList(List<PlanetDb> planetDb);
 
+    @Mapping(target = "first", expression = "java(planetDb.isFirst())")
+    PlanetInfo PlanetDbToPlanetInfo(PlanetDb planetDb);
+
     Set<PlanetInfo> planetsDbToPlanetsInfoNombre(Set<PlanetDb> planetsDb);
 
     @Mapping(target = "nicknamePlayer", source = "playerDb.userDb.nickname")

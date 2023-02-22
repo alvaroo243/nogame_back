@@ -37,7 +37,6 @@ import grupo2.nogame_rest.security.service.RolService;
 import grupo2.nogame_rest.service.PlanetService;
 import grupo2.nogame_rest.service.PlayerService;
 import grupo2.nogame_rest.service.UserService;
-import grupo2.nogame_rest.service.mapper.PlayerMapper;
 import grupo2.nogame_rest.service.mapper.UserMapper;
 
 @RestController
