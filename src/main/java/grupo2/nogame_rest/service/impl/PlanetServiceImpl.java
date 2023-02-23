@@ -1,5 +1,6 @@
 package grupo2.nogame_rest.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -103,7 +104,7 @@ public class PlanetServiceImpl implements PlanetService{
     public PlanetNew createRandomPlanet(Long idPlayer, Boolean first) {
         String image = "";
         image += (int) Math.floor(Math.random() * 49);
-        return new PlanetNew(generateRandomString(16), idPlayer, image, first);
+        return new PlanetNew(generateRandomString(16), idPlayer, image, first, LocalDate.now());
     }
 
     @Override

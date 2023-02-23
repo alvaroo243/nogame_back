@@ -1,6 +1,7 @@
 package grupo2.nogame_rest.model.db;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,4 +29,5 @@ public class PlanetNewDb implements Serializable{
     private Long playerId;
     private String image;
     private Boolean first;
+    private LocalDate created_ts;
 }

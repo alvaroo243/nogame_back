@@ -12,7 +12,7 @@ Content-Type: application/json
 ## getPlayersList
 GET http://localhost:8080/api/player/id/1 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpYXQiOjE2NzcxNjI2NTUsImV4cCI6MTY3NzE5ODY1NX0.IJK0ue-USdNdNfYCVQPvt4vL2SWWR8yMR7ONWpTL9HsFJb5hcIBBRko2wR6Lnv_sHbgOuW0hTP2vehBtAF1Aqg
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpYXQiOjE2NzcxNjcwMDUsImV4cCI6MTY3NzIwMzAwNX0.8jSDvQvada4Qsp-lcwvUXgWTtrolMQzdOEDqbD3JiQpSdDKAFtYlAwp2jy7ddFbwWl8DiU2x_b1ZpRKIgpZm9A
 ###
 ## addTypePlayer
 GET http://localhost:8080/api/player/1/type/1 HTTP/1.1
@@ -27,7 +27,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpY
 ## getPlayerPlanets
 POST http://localhost:8080/api/player/planets HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpYXQiOjE2NzcxNjI2NTUsImV4cCI6MTY3NzE5ODY1NX0.IJK0ue-USdNdNfYCVQPvt4vL2SWWR8yMR7ONWpTL9HsFJb5hcIBBRko2wR6Lnv_sHbgOuW0hTP2vehBtAF1Aqg
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJpYXQiOjE2NzcxNjk3ODQsImV4cCI6MTY3NzIwNTc4NH0.WL6ACiPWGHF225SB7-VXzh-eWB23BOLcvftit0h1xFq8bVHGbgtNQ2f4-rTYUfbDo0WKXIfvnFmq6x0YpjIZsQ
 
 {
     "id": 1

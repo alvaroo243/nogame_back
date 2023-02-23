@@ -14,5 +14,5 @@ public class PlayerInfo implements Serializable{
     private Long id;
     private String email;
     private Integer level;
-    private String nameType;
+    private String type;
 }

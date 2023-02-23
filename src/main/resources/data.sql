@@ -2,7 +2,7 @@
 -- DataBase `nogame_database`
 -- -----------------------------------------------------
 
-CREATE USER IF NOT EXISTS 'nogame'@'localhost' IDENTIFIED WITH mysql_native_password BY 'grupo2';
+CREATE USER IF NOT EXISTS 'nogame'@'localhost' IDENTIFIED BY 'grupo2';
 GRANT ALL PRIVILEGES ON *.* TO 'nogame'@'localhost' WITH GRANT OPTION;
 ALTER USER 'nogame'@'localhost' REQUIRE NONE WITH 
 MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0; 
@@ -123,6 +123,7 @@ CREATE  TABLE IF NOT EXISTS `planet` (
   `player` INT(11),
   `image` VARCHAR(250) DEFAULT NULL UNIQUE,
   `first` BOOLEAN DEFAULT FALSE,
+  `created_ts` DATE,
   CONSTRAINT `planet_player` 
     FOREIGN KEY (`player`) 
 	REFERENCES `player` (`id`),

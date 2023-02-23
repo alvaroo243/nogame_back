@@ -43,7 +43,7 @@ public interface PlayerMapper {
     PlayerNewDb playerNewToPlayerNewDb(PlayerNew playerNew);
 
     @Mapping(target = "email", source = "userDb.email")
-    @Mapping(target = "nameType", source = "typeDb.name")
+    @Mapping(target = "type", source = "typeDb.name")
     PlayerInfo PlayerDbToPlayerInfo(PlayerDb playerDb);
 
     void updatePlayerEditDbFromPlayerEdit(PlayerEdit playerEdit,@MappingTarget PlayerEditDb playerEditDb);

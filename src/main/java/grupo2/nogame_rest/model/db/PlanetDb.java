@@ -1,8 +1,10 @@
 package grupo2.nogame_rest.model.db;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,6 +33,8 @@ public class PlanetDb implements Serializable{
     private PlayerDb playerDb;
     private String image;
     private Integer first;
+    @Column(name = "created_ts", columnDefinition = "TIMESTAMP")
+    private LocalDate created_ts;
 
     public boolean isFirst(){
         if (this.first == 0) {
