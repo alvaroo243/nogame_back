@@ -49,6 +49,6 @@ public class UserRestController {
     @DeleteMapping("/user/delete/{email}")
     public String deleteByEmail(@PathVariable(value = "email") String email) {
         return userService.deleteByEmail(email);
-    } 
-
+    }
+    
 }

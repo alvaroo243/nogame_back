@@ -9,6 +9,7 @@ import grupo2.nogame_rest.model.db.PlayerDb;
 import grupo2.nogame_rest.model.db.PlayerEditDb;
 import grupo2.nogame_rest.model.db.PlayerNewDb;
 import grupo2.nogame_rest.model.dto.Edit.PlayerEdit;
+import grupo2.nogame_rest.model.dto.Info.PlayerInfo;
 import grupo2.nogame_rest.model.dto.List.PlayerList;
 import grupo2.nogame_rest.model.dto.New.PlayerNew;
 import grupo2.nogame_rest.repository.PlayerRepository;
@@ -38,6 +39,16 @@ public class PlayerServiceImpl implements PlayerService{
         Optional<PlayerDb> playerDb = playerRepository.findById(id);
         if (playerDb.isPresent()) {
             return Optional.of(PlayerMapper.INSTANCE.PlayerDbToPlayerList(playerDb.get()));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<PlayerInfo> getPlayerInfoById(Long id) {
+        Optional<PlayerDb> playerDb = playerRepository.findById(id);
+        if (playerDb.isPresent()) {
+            return Optional.of(PlayerMapper.INSTANCE.PlayerDbToPlayerInfo(playerDb.get()));
         } else {
             return Optional.empty();
         }

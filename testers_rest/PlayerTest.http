@@ -10,15 +10,26 @@ GET http://localhost:8080/api/player/1/hasType HTTP/1.1
 Content-Type: application/json
 ###
 ## getPlayersList
-GET http://localhost:8080/api/player/1 HTTP/1.1
+GET http://localhost:8080/api/player/id/1 HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpYXQiOjE2NzcxNjI2NTUsImV4cCI6MTY3NzE5ODY1NX0.IJK0ue-USdNdNfYCVQPvt4vL2SWWR8yMR7ONWpTL9HsFJb5hcIBBRko2wR6Lnv_sHbgOuW0hTP2vehBtAF1Aqg
 ###
 ## addTypePlayer
-POST http://localhost:8080/api/player/1/type/1 HTTP/1.1
+GET http://localhost:8080/api/player/1/type/1 HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpYXQiOjE2NzcxNjI2NTUsImV4cCI6MTY3NzE5ODY1NX0.IJK0ue-USdNdNfYCVQPvt4vL2SWWR8yMR7ONWpTL9HsFJb5hcIBBRko2wR6Lnv_sHbgOuW0hTP2vehBtAF1Aqg
 ###
 ## getPlayerDbByEmail
-GET http://localhost:8080/api/player/user1@gmail.com HTTP/1.1
+GET http://localhost:8080/api/player/email/user2@gmail.com HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJpYXQiOjE2NzcwNTc1ODYsImV4cCI6MTY3NzA5MzU4Nn0.vdVOthA6fOc_YrdFRJVUZ_fGeDRcXlZbaOPJaFJ06ZdrkQiajcbGULnTwm9is1GDXyeWilGHxjo6M44wDMWXqg
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpYXQiOjE2NzcxNjI2NTUsImV4cCI6MTY3NzE5ODY1NX0.IJK0ue-USdNdNfYCVQPvt4vL2SWWR8yMR7ONWpTL9HsFJb5hcIBBRko2wR6Lnv_sHbgOuW0hTP2vehBtAF1Aqg
+###
+## getPlayerPlanets
+POST http://localhost:8080/api/player/planets HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMkBnbWFpbC5jb20iLCJpYXQiOjE2NzcxNjI2NTUsImV4cCI6MTY3NzE5ODY1NX0.IJK0ue-USdNdNfYCVQPvt4vL2SWWR8yMR7ONWpTL9HsFJb5hcIBBRko2wR6Lnv_sHbgOuW0hTP2vehBtAF1Aqg
+
+{
+    "id": 1
+}
 ###

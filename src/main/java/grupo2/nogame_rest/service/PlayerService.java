@@ -6,6 +6,7 @@ import java.util.Optional;
 import grupo2.nogame_rest.model.db.PlayerDb;
 import grupo2.nogame_rest.model.db.PlayerEditDb;
 import grupo2.nogame_rest.model.dto.Edit.PlayerEdit;
+import grupo2.nogame_rest.model.dto.Info.PlayerInfo;
 import grupo2.nogame_rest.model.dto.List.PlayerList;
 import grupo2.nogame_rest.model.dto.New.PlayerNew;
 
@@ -15,6 +16,7 @@ public interface PlayerService {
     public Optional<PlayerList> getPlayerListById(Long id);
     public Optional<PlayerEdit> getPlayerEditById(Long id);
     public Optional<PlayerEditDb> getPlayerEditDbById(Long id);
+    public Optional<PlayerInfo> getPlayerInfoById(Long id);
     public Optional<PlayerDb> getPlayerDbByUserEmail(String email);
     public PlayerList getPlayerListByUserEmail(String email);
     public PlayerNew save(PlayerNew playerNew);

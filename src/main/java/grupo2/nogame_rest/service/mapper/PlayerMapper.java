@@ -11,6 +11,7 @@ import grupo2.nogame_rest.model.db.PlayerDb;
 import grupo2.nogame_rest.model.db.PlayerNewDb;
 import grupo2.nogame_rest.model.db.PlayerEditDb;
 import grupo2.nogame_rest.model.dto.Edit.PlayerEdit;
+import grupo2.nogame_rest.model.dto.Info.PlayerInfo;
 import grupo2.nogame_rest.model.dto.List.PlayerList;
 import grupo2.nogame_rest.model.dto.New.PlayerNew;
 
@@ -40,6 +41,10 @@ public interface PlayerMapper {
     PlayerNew playerNewDbToPlayerNew(PlayerNewDb playerDb);
 
     PlayerNewDb playerNewToPlayerNewDb(PlayerNew playerNew);
+
+    @Mapping(target = "email", source = "userDb.email")
+    @Mapping(target = "nameType", source = "typeDb.name")
+    PlayerInfo PlayerDbToPlayerInfo(PlayerDb playerDb);
 
     void updatePlayerEditDbFromPlayerEdit(PlayerEdit playerEdit,@MappingTarget PlayerEditDb playerEditDb);
 }
