@@ -177,7 +177,7 @@ DROP TABLE IF EXISTS `troops`;
 
 CREATE TABLE IF NOT EXISTS `troops` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-    `name` INT(11) NOT NULL UNIQUE,
+    `name` VARCHAR(50) NOT NULL UNIQUE,
     `special` BOOLEAN DEFAULT FALSE,
     `value` INT NOT NULL DEFAULT 1,
     `type` INT(11),
@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `troops` (
     CONSTRAINT `troop_type`
       FOREIGN KEY (`type`)
       REFERENCES `type` (`id`)
-);
+); 
 
 -- -----------------------------------------------------
 -- Table `structure`
