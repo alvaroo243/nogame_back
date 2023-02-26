@@ -50,7 +50,12 @@ public class MainSecurity {
         //contexto de autenticación
         http.cors().and().csrf().disable()
         .authorizeRequests()
-        .antMatchers("/auth/**").permitAll()
+        .antMatchers("/auth/**",
+        "/swagger-ui/**",
+        "/swagger-resources/**",
+        "/configuration/**",
+        "/v3/api-docs/**"
+        ).permitAll()
         .anyRequest().authenticated()
         .and()
         .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)

@@ -60,3 +60,7 @@ Content-Type: application/json
     "password": "user2"
 }
 ###
+## swagger
+GET http://localhost:8080/swagger-ui HTTP/1.1
+Content-Type: application/json
+###
