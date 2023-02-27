@@ -152,19 +152,44 @@ INSERT INTO resource (name)
 VALUES ('Petroleo');
 
 -- -----------------------------------------------------
+-- Table `structure`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `structure`;
+
+CREATE TABLE IF NOT EXISTS `structure` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(50) NOT NULL UNIQUE,
+	`upgrade_time_formula` VARCHAR(50) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+INSERT INTO structure (name,upgrade_time_formula)
+VALUES ('Recolector de piedra','50');
+INSERT INTO structure (name,upgrade_time_formula)
+VALUES ('Recolector de cristal', '50');
+INSERT INTO structure (name,upgrade_time_formula)
+VALUES ('Recolector de hierro', '50');
+INSERT INTO structure (name,upgrade_time_formula)
+VALUES ('Recolector de petroleo','50');
+
+-- -----------------------------------------------------
 -- Table `resource_storage`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `resource_storage`;
 
 CREATE TABLE IF NOT EXISTS `resource_storage` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-    `resource` VARCHAR(150) NOT NULL,
+    `resource` INT(11) NOT NULL,
+	`structure` INT(11) NOT NULL,
     `planet` INT(11),
     `quantity` INT(11),
     PRIMARY KEY (`id`),
     CONSTRAINT `resource_storage_type`
 	  FOREIGN KEY (`resource`)
-      REFERENCES `resource` (`name`),
+      REFERENCES `resource` (`id`),
+	CONSTRAINT `resource_storage_structure`
+	  FOREIGN KEY (`structure`)
+	  REFERENCES `structure` (`id`),
 	CONSTRAINT `resource_storage_planet`
       FOREIGN KEY (`planet`)
       REFERENCES `planet` (`id`)
@@ -186,27 +211,6 @@ CREATE TABLE IF NOT EXISTS `troops` (
       FOREIGN KEY (`type`)
       REFERENCES `type` (`id`)
 );
-
--- -----------------------------------------------------
--- Table `structure`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `structure`;
-
-CREATE TABLE IF NOT EXISTS `structure` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(50) NOT NULL UNIQUE,
-	`upgrade_time_formula` VARCHAR(50) NOT NULL,
-	PRIMARY KEY (`id`)
-);
-
-INSERT INTO structure (name,upgrade_time_formula)
-VALUES ('Recolector de piedra','50');
-INSERT INTO structure (name,upgrade_time_formula)
-VALUES ('Recolector de cristal', '50');
-INSERT INTO structure (name,upgrade_time_formula)
-VALUES ('Recolector de hierro', '50');
-INSERT INTO structure (name,upgrade_time_formula)
-VALUES ('Recolector de petroleo','50');
 
 -- -----------------------------------------------------
 -- Table `structure_formula`
