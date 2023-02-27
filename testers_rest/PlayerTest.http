@@ -3,7 +3,7 @@
 ## getPlayersList
 GET http://localhost:8080/api/player HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJpYXQiOjE2NzcwNTYyNTQsImV4cCI6MTY3NzA5MjI1NH0.5_ugTus37UMgUgoPSGPp-EXICpOlF0lCCKTHNahIQo2MWg79HV3e4tvwbiQbwwdIQpLHq9m4guiO-Cnz4KlEgg
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMUBnbWFpbC5jb20iLCJpYXQiOjE2Nzc0OTYxMjUsImV4cCI6MTY3NzUzMjEyNX0.bwpmhNv9G100F6a8fS5JfrPLChmNq64J7BteFtT37WJpoD1AyJv6tR947jxcQ6kxlZ7eI2yiBB_IkiivQr6odw
 ###
 ## getPlayersList
 GET http://localhost:8080/api/player/1/hasType HTTP/1.1

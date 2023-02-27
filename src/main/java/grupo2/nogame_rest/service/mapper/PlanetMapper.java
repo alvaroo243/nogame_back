@@ -17,13 +17,14 @@ import grupo2.nogame_rest.model.dto.List.PlanetList;
 import grupo2.nogame_rest.model.dto.New.PlanetNew;
 import grupo2.nogame_rest.model.dto.Info.PlanetInfo;
 
-@Mapper
+@Mapper(uses = Resource_storageMapper.class)
 public interface PlanetMapper {
     PlanetMapper INSTANCE = Mappers.getMapper(PlanetMapper.class);
 
     List<PlanetList> planetsToPlanetList(List<PlanetDb> planetDb);
 
     @Mapping(target = "first", expression = "java(planetDb.isFirst())")
+    @Mapping(target = "storagesInfo", source = "storagesDb")
     PlanetInfo PlanetDbToPlanetInfo(PlanetDb planetDb);
 
     Set<PlanetInfo> planetsDbToPlanetsInfoNombre(Set<PlanetDb> planetsDb);
