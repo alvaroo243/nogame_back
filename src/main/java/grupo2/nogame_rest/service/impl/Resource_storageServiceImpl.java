@@ -77,7 +77,7 @@ public class Resource_storageServiceImpl implements Resource_storageService{
         return null;
     }
 
-	@Scheduled(fixedRate = 600000)
+	@Scheduled(fixedRate = 60000)
     public void resource_generator() {
         int quantityToAdd = 20;
         //List<Resource_StorageEdit> lista_almacenes = findAllResource_storageEdit();
